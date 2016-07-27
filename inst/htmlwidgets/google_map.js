@@ -4,27 +4,31 @@ HTMLWidgets.widget({
   type: 'output',
 
   initialize: function(el, width, height){
-      alert("Initialise");
+
+    //function initMap() {
+    window.onload = function(){
 
        var mapDiv = document.getElementById(el.id);
-        alert("inside mapDiv");
 
         mapDiv.className = "googlemap";
 
-        window.onload = function(){
+
         //setTimeout(function() {
-          alert("inside onload");
-           var map = new google.maps.Map(mapDiv, {
-            center: {lat: x.lat, lng: x.lng},
-            zoom: x.zoom
+
+          var map = new google.maps.Map(mapDiv, {
+            center: {lat: -37.9, lng: 144.5},
+            zoom: 10
           });
-          return map;
-        };
-        //}, 1000);
+    };
+          //if (!HTMLWidgets.shinyMode) return map;
+
+        //};
+        //}, 5000);
+      return map;
   },
 
-  renderValue: function(map) {
-    alert('renderValue');
+  renderValue: function(el, data, map) {
+
     return map;
 /*
     alert("insider render value");
@@ -58,7 +62,29 @@ HTMLWidgets.widget({
       // TODO: code to re-render the widget with a new size
     }
 });
+/*
+if (HTMLWidgets.shinyMode) {
+  Shiny.addCustomMessageHandler("googlemap-calls", function(data) {
+    let id = data.id;
+    let el = document.getElementById(id);
+    let map = el ? $(el).data("googlemap-map") : null;
+    if (!map) {
+      log("Couldn't find map with id " + id);
+      return;
+    }
 
+    for (let i = 0; i < data.calls.length; i++) {
+      let call = data.calls[i];
+      if (call.dependencies) {
+        Shiny.renderDependencies(call.dependencies);
+      }
+      if (methods[call.method])
+        methods[call.method].apply(map, call.args);
+      else
+        log("Unknown method " + call.method);
+    }
+  });
+}
 
 function add_heatmap(map, data_heatmap, heatmap_options){
 
@@ -161,7 +187,7 @@ function add_polyline(map, data_polyline){
         }
 }
 
-
+*/
 
 
 /*
