@@ -10,18 +10,23 @@ HTMLWidgets.widget({
         alert("inside mapDiv");
 
         mapDiv.className = "googlemap";
-        //window.onload = function(){
-        setTimeout(function() {
+
+        window.onload = function(){
+        //setTimeout(function() {
           alert("inside onload");
            var map = new google.maps.Map(mapDiv, {
             center: {lat: x.lat, lng: x.lng},
             zoom: x.zoom
           });
-        }, 0);
+          return map;
+        };
+        //}, 1000);
   },
 
-  renderValue: function(map, x) {
-
+  renderValue: function(map) {
+    alert('renderValue');
+    return map;
+/*
     alert("insider render value");
     if(x.markers !== null){
         setTimeout(function() {
@@ -46,6 +51,7 @@ HTMLWidgets.widget({
           add_heatmap(map, x.heatmap, x.heatmap_options);
         }, 0);
       }
+*/
   },
 
     resize: function(width, height) {
