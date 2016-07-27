@@ -6,7 +6,7 @@ HTMLWidgets.widget({
   initialize: function(el, width, height){
 
     //function initMap() {
-    window.onload = function(){
+    //window.onload = function(){
 
        var mapDiv = document.getElementById(el.id);
 
@@ -15,11 +15,25 @@ HTMLWidgets.widget({
 
         //setTimeout(function() {
 
+          var len = $('script[src*="https://maps.googleapis.com*"]').length;
+          alert('begin check');
+
+          var checkExist = setInterval(function() {
+             if (len === 0) {
+               console.log("doesn't exit");
+             }else{
+                console.log("Exists!");
+                clearInterval(checkExist);
+             }
+          }, 100); // check every 100ms
+
+          alert('outside check');
           var map = new google.maps.Map(mapDiv, {
-            center: {lat: -37.9, lng: 144.5},
-            zoom: 10
-          });
-    };
+              center: {lat: -37.9, lng: 144.5},
+              zoom: 10
+            });
+
+    //};
           //if (!HTMLWidgets.shinyMode) return map;
 
         //};
