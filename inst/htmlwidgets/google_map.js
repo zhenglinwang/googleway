@@ -8,68 +8,60 @@ HTMLWidgets.widget({
     //function initMap() {
     //window.onload = function(){
 
-       var mapDiv = document.getElementById(el.id);
+        var mapDiv = document.getElementById(el.id);
+          mapDiv.className = "googlemap";
 
-        mapDiv.className = "googlemap";
+          var checkExists = setInterval(function(){
 
-
-        //setTimeout(function() {
-
-          var len = $('script[src*="https://maps.googleapis.com*"]').length;
-          alert('begin check');
-
-          var checkExist = setInterval(function() {
-             if (len === 0) {
-               console.log("doesn't exit");
-             }else{
-                console.log("Exists!");
-                clearInterval(checkExist);
-             }
-          }, 100); // check every 100ms
-
-          alert('outside check');
-          var map = new google.maps.Map(mapDiv, {
-              center: {lat: -37.9, lng: 144.5},
-              zoom: 10
+            var map = new google.maps.Map(mapDiv, {
+              center: {lat: x.lat, lng: x.lng},
+              zoom: x.zoom
             });
 
-    //};
-          //if (!HTMLWidgets.shinyMode) return map;
+            if (google !== 'undefined'){
+              console.log("exists");
+              clearInterval(checkExists);
+            }else{
+              console.log("does not exist!");
+            }
 
-        //};
-        //}, 5000);
+            console.log('layers');
+            if(x.markers !== null){
+
+              setTimeout(function() {
+                add_markers(map, x.markers);
+             }, 0);
+            }
+
+            if(x.circles !== null){
+
+              setTimeout(function() {
+                add_circles(map, x.circles);
+              }, 0);
+            }
+
+            if(x.polyline !== null){
+
+              setTimeout(function() {
+                add_polyline(map, x.polyline);
+              }, 0);
+            }
+
+            if(x.heatmap !== null){
+
+              setTimeout(function() {
+                add_heatmap(map, x.heatmap, x.heatmap_options);
+              }, 0);
+            }
+          }, 100);
+
       return map;
   },
 
   renderValue: function(el, data, map) {
 
     return map;
-/*
-    alert("insider render value");
-    if(x.markers !== null){
-        setTimeout(function() {
-          add_markers(map, x.markers);
-       }, 0);
-      }
 
-      if(x.circles !== null){
-        setTimeout(function() {
-          add_circles(map, x.circles);
-        }, 0);
-      }
-
-      if(x.polyline !== null){
-        setTimeout(function() {
-          add_polyline(map, x.polyline);
-        }, 0);
-      }
-
-      if(x.heatmap !== null){
-        setTimeout(function() {
-          add_heatmap(map, x.heatmap, x.heatmap_options);
-        }, 0);
-      }
-*/
   },
 
     resize: function(width, height) {
