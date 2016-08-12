@@ -181,6 +181,9 @@ check_for_columns <- function(df, cols){
 }
 
 correct_columns <- function(df, cols, col_names, allowed_nulls = c()){
+  ## utility function:
+  ## corrects for columns not supplied into the calling R function, but which
+  ## are required when passed into javascript (by creating an NA column)
 
   for(i in 1:length(col_names)){
 
@@ -217,6 +220,8 @@ correct_columns <- function(df, cols, col_names, allowed_nulls = c()){
 
 
 latitude_column <- function(data, lat, calling_function){
+  ## utility function:
+  ## finds and assigns the latitude column
 
   if(is.null(lat)){
     lat_col <- find_lat_column(names(data), calling_function)
@@ -230,6 +235,9 @@ latitude_column <- function(data, lat, calling_function){
 }
 
 longitude_column <- function(data, lon, calling_function){
+  ## utility function:
+  ## finds and assigns the longitude column
+
   if(is.null(lon)){
     lon_col <- find_lon_column(names(data), calling_function)
     names(data)[names(data) == lon_col[1]] <- "lng"
@@ -242,6 +250,8 @@ longitude_column <- function(data, lon, calling_function){
 
 
 find_lat_column = function(names, calling_function, stopOnFailure = TRUE) {
+  ## utility function
+  ## tries to find latitude column
 
   lats = names[grep("^(lat|lats|latitude|latitudes)$", names, ignore.case = TRUE)]
 
@@ -262,6 +272,8 @@ find_lat_column = function(names, calling_function, stopOnFailure = TRUE) {
 
 
 find_lon_column = function(names, calling_function, stopOnFailure = TRUE) {
+  ## utility function:
+  ## tries to find the longitude column
 
   lons = names[grep("^(lon|lons|lng|lngs|long|longs|longitude|longitudes)$", names, ignore.case = TRUE)]
 

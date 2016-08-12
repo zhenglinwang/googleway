@@ -152,7 +152,35 @@ add_circles <- function(map,
                         stroke_opacity = 0.8,
                         stroke_weight = 2,
                         fill_colour = '#FF0000',
-                        fill_opacity = 0.35){
+                        fill_opacity = 0.35,
+                        palette = NULL){
+
+  ## TODO
+  ## - allow colouring by a grouping variable
+  ## - default to 'heat.colors', allow other ?palette options
+  ## - use any user-defined colours
+
+  ## if a 'grouping' column is provided, and no pallette,
+  ## use the default pallet
+
+  ## each of stroke_colour, fill_colour can contain EITHER
+  ## -- string == column name
+  ## ---- column holds EITHER
+  ## ------ hex colours
+  ## ------ variable
+  ## -- hex colour to use on all circles
+
+  ## user defined palette - must match up their variables to the correct colour?
+
+
+  ## If no colour provided, use the defaults:
+  stroke_colour <- '#FF0000'
+  stroke_opacity <- 0.8
+  stroke_weight <- 2
+  fill_colour <- '#FF0000'
+  fill_opacity <- 0.35
+
+
 
   data <- as.data.frame(data)
 
@@ -165,6 +193,10 @@ add_circles <- function(map,
     data <- longitude_column(data, lon, 'add_circles')
     lon <- "lng"
   }
+
+
+
+
 
   ## check columns
   cols <- list(radius, stroke_colour, stroke_opacity, stroke_weight, fill_colour, fill_opacity)
