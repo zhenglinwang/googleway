@@ -195,6 +195,23 @@ add_circles <- function(map,
   }
 
 
+  ## checking colour columns
+  ## if !is.null(stroke_colour)
+  ## -- if stroke_colour %in% names(data) - the column contains either a hex colour, or a grouping variable
+  ## -- -- if stroke_colour column is not HEX colours, use the variables as group
+  ## -- -- -- and use the supplied palette (or the default one)
+  ## -- -- -- -- if there is a supplied pallette:
+  ## -- -- -- -- -- check all the group variables are in the palette - if not, can use any
+  ## -- -- -- -- -- if the palette lines up to the group varaibles, add a column to teh data that aligns to the grouping variables?
+  ## -- -- else use the supplied HEX colours
+  ## -- else if stroke_colour is HEX, use that colour for the entire data set
+  ##
+  ## is this done before or after 'check columns' ??
+  ## -- correct_columns will look for NULL columns, and stop if they are not allowed,
+  ## -- or create an NA column if they are allowed.
+  ## -- If the colour columns are allowed to be NULL, then they will be filled with NA
+  ## -- then when going into the colour checks, the 'stroke_colour' will still be null. so it can enter the colour checks.
+
 
 
 
@@ -206,6 +223,8 @@ add_circles <- function(map,
 
   data <- lst$df
   cols <- lst$cols
+
+
 
   check_hex_colours(data, cols = unique(c(cols$stroke_colour, cols$fill_colour)))
   check_opacities(data, cols = unique(c(cols$stroke_opacity, cols$fill_opacity)))
