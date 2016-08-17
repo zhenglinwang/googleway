@@ -154,8 +154,12 @@ check_hex_colours <- function(df, cols){
   ## checks the columns of data that should be in HEX colours
 
   for(myCol in cols){
-    if(!all(grepl("^#(?:[0-9a-fA-F]{3}){1,2}$", df[, myCol])))
-      stop(paste0("Incorrect colour specified in ", myCol, ". Make sure the colours in the column are valid hexadecimal HTML colours"))
+    if(!all(grepl("^#(?:[0-9a-fA-F]{3}){1,2}$", df[, myCol]))){
+      #stop(paste0("Incorrect colour specified in ", myCol, ". Make sure the colours in the column are valid hexadecimal HTML colours"))
+      return(FALSE)
+    }else{
+      return(TRUE)
+    }
   }
 }
 

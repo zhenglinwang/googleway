@@ -181,7 +181,6 @@ add_circles <- function(map,
   fill_opacity <- 0.35
 
 
-
   data <- as.data.frame(data)
 
   if(is.null(lat)){
@@ -198,7 +197,7 @@ add_circles <- function(map,
   ## checking colour columns
   ## if !is.null(stroke_colour)
   ## -- if stroke_colour %in% names(data) - the column contains either a hex colour, or a grouping variable
-  ## -- -- if stroke_colour column is not HEX colours, use the variables as group
+  ## -- -- if stroke_colour column is not HEX colours, use the variables as group / continuous / factor? (colorRamp / colorRampPalette)
   ## -- -- -- and use the supplied palette (or the default one)
   ## -- -- -- -- if there is a supplied pallette:
   ## -- -- -- -- -- check all the group variables are in the palette - if not, can use any
@@ -210,8 +209,8 @@ add_circles <- function(map,
   ## -- correct_columns will look for NULL columns, and stop if they are not allowed,
   ## -- or create an NA column if they are allowed.
   ## -- If the colour columns are allowed to be NULL, then they will be filled with NA
-  ## -- then when going into the colour checks, the 'stroke_colour' will still be null. so it can enter the colour checks.
-
+  ## -- then when going into the colour checks, the 'stroke_colour' will still be null.
+  ## so it can enter the colour checks (as it checks for !is.na(stroke_colour)
 
 
 
@@ -224,7 +223,23 @@ add_circles <- function(map,
   data <- lst$df
   cols <- lst$cols
 
+  ## Colours
 
+  # colour_column <- stroke_colour
+  # if(!is.null(colour_column)){
+  #   if(colour_column %in% names(data)){
+  #     ## the column name has been supplied
+  #     if(check_hex_colours(colour_column) == TRUE){
+  #       ## the column contains HEX colours - so use them
+  #
+  #     }else{
+  #       ## the column does not contain HEX colours, so assume a grouping variable
+  #       ## if numeric, keep the order to use a colour ramp
+  #       ## if factor/char
+  #
+  #     }
+  #   }
+  # }
 
   check_hex_colours(data, cols = unique(c(cols$stroke_colour, cols$fill_colour)))
   check_opacities(data, cols = unique(c(cols$stroke_opacity, cols$fill_opacity)))
