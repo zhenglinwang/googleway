@@ -110,6 +110,8 @@ if (HTMLWidgets.shinyMode) {
 
   Shiny.addCustomMessageHandler("googlemap-calls", function(data) {
 
+    console.log("HTMLWidgets.shinyMode");
+
     var id = data.id;   // the div id of the map
     var el = document.getElementById(id);
     var map = el;
@@ -118,7 +120,7 @@ if (HTMLWidgets.shinyMode) {
       return;
     }
 
-    for (let i = 0; i < data.calls.length; i++) {
+    for (i = 0; i < data.calls.length; i++) {
 
       var call = data.calls[i];
 

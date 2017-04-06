@@ -703,9 +703,6 @@
 # pl_inner <- encode_pl(lat = c(28.745, 29.570, 27.339),
 #       lon = c(-70.579, -67.514, -66.668))
 #
-# google_map(key = map_key) %>%
-#   add_polygons(data = df, polyline = 'polyline', id = 'id')
-#
 # pl_other <- encode_pl(c(22,23,22), c(-50, -49, -51))
 #
 # df <- data.frame(id = c('1', '1', '2'),
@@ -754,7 +751,16 @@
 # jsonlite::toJSON(lst_polygon)
 
 
+## Rstudio
 
-
-
-
+# df <- data.frame(id = c(1,1,1,1,1,1,2,2,2),
+#       pathId = c(1,1,1,2,2,2,1,1,1),
+#       lat = c(26.774, 18.466, 32.321, 28.745, 29.570, 27.339, 22, 23, 22),
+#       lng = c(-80.190, -66.118, -64.757, -70.579, -67.514, -66.668, -50, -49, -51),
+#       fill_colour = c("#00FF00"),
+#       stringsAsFactors = FALSE)
+#
+# map_key <- read.dcf("~/Documents/.googleAPI", fields = "GOOGLE_MAP_KEY")
+#
+# google_map(key = map_key) %>%
+#   add_polygons(data = df, lat = 'lat', lon = 'lng')
