@@ -5,7 +5,7 @@ function cl(x){
 }
 
 
-function drawChart(marker) {
+function drawChart() {
 
         // Create the data table.
         var data = new google.visualization.DataTable();
@@ -26,12 +26,12 @@ function drawChart(marker) {
                        'height':150};
 
         var node        = document.createElement('div'),
-            infoWindow  = new google.maps.InfoWindow(),
+            //infoWindow  = new google.maps.InfoWindow(),
             chart       = new google.visualization.PieChart(node);
 
             chart.draw(data, options);
             infoWindow.setContent(node);
-            infoWindow.open(marker.getMap(),marker);
+            //infoWindow.open(marker.getMap(),marker);
       }
 
 

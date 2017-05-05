@@ -764,7 +764,7 @@
 # map_key <- symbolix.utils::mapKey()
 #
 # df <- data.frame(lat = -33.891044, lon = 151.2755)
-# google_map(key = map_key) %>% add_markers(data = df)
+# google_map(key = map_key) %>% add_markers(data = df, info_window = "lat")
 
 
 

@@ -215,13 +215,14 @@ function add_markers(map_id, data_markers, cluster, layer_id){
 
     if(data_markers[i].info_window){
 
-      //marker.infowindow = new google.maps.InfoWindow({
-      //  content: data_markers[i].info_window
-      //});
+      marker.infowindow = new google.maps.InfoWindow({
+        content: data_markers[i].info_window
+        //content: drawChart()
+      });
 
       google.maps.event.addListener(marker, 'click', function() {
-        //this.infowindow.open(window[map_id + 'map'], this);
-        drawChart(this);
+        this.infowindow.open(window[map_id + 'map'], this);
+        //drawChart(this);
       });
 
       //add_infoWindow(map_id, marker, infoWindow, '_information', data_markers[i].info_window);
