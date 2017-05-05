@@ -13,3 +13,7 @@ dependencies:
     version: 1.0.0
     src: "htmlwidgets/lib"
     script: markerclusterer.js
+  - name: google_charts.js
+    version: 1.0.0
+    src: "htmlwidgets/lib"
+    script: google_charts.js

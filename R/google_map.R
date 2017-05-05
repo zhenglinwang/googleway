@@ -103,7 +103,8 @@ google_map <- function(key,
 
   # if(search_box == TRUE){
     header <- paste0('<script src="https://maps.googleapis.com/maps/api/js?key=',
-                     key, '&libraries=visualization,geometry,places"></script>')
+                     key, '&libraries=visualization,geometry,places"></script>',
+                     '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>')
   # }else{
   #   header <- paste0('<script src="https://maps.googleapis.com/maps/api/js?key=',
   #                    key, '&libraries=visualization,geometry"></script>')
