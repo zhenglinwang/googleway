@@ -119,8 +119,19 @@ add_markers <- function(map,
   if(!is.null(label))
     markers[, 'label'] <- as.character(data[, label])
 
-  if(!is.null(info_window))
-    markers[, "info_window"] <- as.character(data[, info_window])
+  if(!is.null(info_window)){
+    ## if a single columnname, use that
+    ## else, it needs to be multiple column names, where
+    ## the values will be the data components of a chart
+    ## and needs to define the chart type
+    ## e.g. list("pie", c("stop_lat", "stop_lon"))
+    if(inherits(info_window, "list")){
+
+    }else{
+      markers[, "info_window"] <- as.character(data[, info_window])
+    }
+
+  }
 
   if(!is.null(mouse_over))
     markers[, "mouse_over"] <- as.character(data[, mouse_over])

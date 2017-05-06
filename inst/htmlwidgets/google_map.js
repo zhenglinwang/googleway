@@ -10,7 +10,6 @@ HTMLWidgets.widget({
     return {
       renderValue: function(x) {
 
-        cl('hi');
         google.charts.load('current', {'packages':['corechart']});
 
 
@@ -203,26 +202,15 @@ function add_markers(map_id, data_markers, cluster, layer_id){
     });
 
 
-        //data.addColumn('string', 'Topping');
-        //data.addColumn('number', 'Slices');
-        //data.addRows([
-        //  ['Mushrooms', 3],
-        //  ['Onions', 1],
-        //  ['Olives', 1],
-        //  ['Zucchini', 1],
-        //  ['Pepperoni', 2]
-        //]);
-
     if(data_markers[i].info_window){
 
-      marker.infowindow = new google.maps.InfoWindow({
-        content: data_markers[i].info_window
-        //content: drawChart()
-      });
+//      marker.infowindow = new google.maps.InfoWindow({
+//        content: data_markers[i].info_window
+//      });
 
       google.maps.event.addListener(marker, 'click', function() {
-        this.infowindow.open(window[map_id + 'map'], this);
-        //drawChart(this);
+//        this.infowindow.open(window[map_id + 'map'], this);
+        drawChart(this);
       });
 
       //add_infoWindow(map_id, marker, infoWindow, '_information', data_markers[i].info_window);

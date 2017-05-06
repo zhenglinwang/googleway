@@ -760,11 +760,77 @@
 #               overlay_url = "https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg")
 
 
-## charts
-# map_key <- symbolix.utils::mapKey()
+# charts
+# library(googleway)
+# library(jsonlite)
+# map_key <- read.dcf("~/Documents/.googleAPI", fields = "GOOGLE_MAP_KEY")
 #
-# df <- data.frame(lat = -33.891044, lon = 151.2755)
-# google_map(key = map_key) %>% add_markers(data = df, info_window = "lat")
+
+
+
+## DataTable types
+# boolean
+# number
+# string
+# date
+# datetime
+# timeofday
+#
+#
+## row of JSON
+# js <- '{"cols":[{"id":"task","label":"Task","type":"string"},{"id":"hours","label":"Hours per Day","type":"number"}],"rows":[{"c":[{"v":"Work"},{"v":11}]},{"c":[{"v":"Eat"},{"v":2}]},{"c":[{"v":"Commute"},{"v":2}]},{"c":[{"v":"Watch TV"},{"v":2}]},{"c":[{"v":"Sleep"},{"v":7,"f":"7.000"}]}]}'
+#
+# '"cols":[{"id":"task","label":"Task","type":"string"},{"id":"hours","label":"Hours per Day","type":"number"}]'
+# '"rows":[{"c":[{"v":"Work"},{"v":11}]},{"c":[{"v":"Eat"},{"v":2}]},{"c":[{"v":"Commute"},{"v":2}]},{"c":[{"v":"Watch TV"},{"v":2}]},{"c":[{"v":"Sleep"},{"v":7,"f":"7.000"}]}]}'
+#
+# cols <- c("booVal", "numVal", "strVal","dteVal","dtmVal")
+
+#
+# names(tram_stops)
+# v <- sapply(tram_stops[, cols], JsonType)
+#
+# headings <- paste0('"cols":[{', paste0('"id":"', names(v), '","type":"', v, '"', collapse = "},{"), '}]')
+#
+# h <- paste0('[{', paste0('"id":"', names(v), '","type":"', v, '"', collapse = "},{"), '}]')
+#
+
+
+## each column becomes a row
+# '[{ "c" : {},
+#     "c" : {},
+#     "c" : {},
+#     "c" : {}
+# ]'
+
+#
+# toJSON(df)
+#
+# toJSON(list("c" = df))
+#
+#
+#
+# stream_out(df, con = stdout())
+
+
+# markerCharts <- data.frame(stop_id = rep(tram_stops$stop_id, each = 3))
+# markerCharts$variable <- c("yes", "no", "maybe")
+# markerCharts$value <- sample(1:10, size = nrow(markerCharts), replace = T)
+#
+# cols <- c("variable", "value")
+# v <- sapply(markerCharts[, cols], JsonType)
+#
+# headings <- paste0('"cols":[{', paste0('"id":"', names(v), '","type":"', v, '"', collapse = "},{"), '}]')
+#
+#
+# toJSON(markerCharts[markerCharts$stop_id == "17880",  cols])
+#
+# names(markerCharts)[names(markerCharts) %in% cols] <- "v"
+#
+# toJSON(markerCharts[markerCharts$stop_id == "17880",  c("v","v")])
+#
+# google_map(key = map_key) %>%
+#   add_markers(data = tram_stops, lat = "stop_lat", lon = "stop_lon",
+#               info_window = "val1")
 
 
 
