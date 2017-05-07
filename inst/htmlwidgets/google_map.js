@@ -177,7 +177,7 @@ function update_style(map_id, style){
  * @param layer_id
  *          the layer identifier
  */
-function add_markers(map_id, data_markers, cluster, layer_id){
+function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols){
 
   var markers = [];
   var i;
@@ -202,6 +202,8 @@ function add_markers(map_id, data_markers, cluster, layer_id){
       info_window: data_markers[i].info_window
     });
 
+    cl(marker);
+
 
     if(data_markers[i].info_window){
 
@@ -213,7 +215,7 @@ function add_markers(map_id, data_markers, cluster, layer_id){
 
       google.maps.event.addListener(marker, 'click', function() {
 //        this.infowindow.open(window[map_id + 'map'], this);
-        drawChart(this, this.info_window);
+        drawChart(this, this.info_window, visualizationCols);
       });
 
       //add_infoWindow(map_id, marker, infoWindow, '_information', data_markers[i].info_window);
@@ -1270,220 +1272,6 @@ function add_mouseOver(map_id, mapObject, infoWindow, objectAttribute, attribute
 
 }
 
-/**
- * Map click
- *
- * Returns details of the click even on a map
- **/
-function map_click(map_id, mapObject, mapInfo){
-
-  if(!HTMLWidgets.shinyMode) return;
-
-  //Shiny.onInputChange("myMapData", 123.7887);
-
-  google.maps.event.addListener(mapObject, 'click', function(event){
-//   mapObject.addListener('click', function(){
-//
-    var eventInfo = $.extend(
-      mapInfo,
-      {
-        id: map_id,
-//        latNumeric: event.latLng.lat(),
-        lat: event.latLng.lat().toFixed(4),
-        lon: event.latLng.lng().toFixed(4),
-        centerLat: mapObject.getCenter().lat().toFixed(4),
-        centerLng: mapObject.getCenter().lng().toFixed(4),
-        zoom: mapObject.getZoom(),
-        randomValue: Math.random()
-      }
-    );
-
-    // logging messages for debugging numerics / text error
-//    console.log("map clicked - event.latLng.lat(): ");
-//    console.log(event.latLng.lat());
-
-    Shiny.onInputChange(map_id + "_map_click", eventInfo);
-  })
-}
-
-function bounds_changed(map_id, mapObject, mapInfo){
-  if(!HTMLWidgets.shinyMode) return;
-
-  google.maps.event.addListener(mapObject, 'bounds_changed', function(event){
-    var eventInfo = $.extend(
-      {
-        id: map_id,
-//        bounds:mapObject.getBounds(),
-//        east: mapObject.getBounds().toJSON().east.toFixed(4),
-//        north: mapObject.getBounds().toJSON().north.toFixed(4),
-//        south: mapObject.getBounds().toJSON().south.toFixed(4),
-//        west: mapObject.getBounds().toJSON().west.toFixed(4),
-        northEastLat: mapObject.getBounds().getNorthEast().lat().toFixed(4),
-        northEastLon: mapObject.getBounds().getNorthEast().lng().toFixed(4),
-        southWestLat: mapObject.getBounds().getSouthWest().lat().toFixed(4),
-        southWestLon: mapObject.getBounds().getSouthWest().lng().toFixed(4),
-        randomValue: Math.random()
-      },
-      mapInfo
-    );
-
-    Shiny.onInputChange(map_id + "_bounds_changed", eventInfo);
-  })
-}
-
-function zoom_changed(map_id, mapObject, mapInfo){
-
-    if(!HTMLWidgets.shinyMode) return;
-
-  google.maps.event.addListener(mapObject, 'bounds_changed', function(event){
-    var eventInfo = $.extend(
-      {
-        id: map_id,
-        zoom: mapObject.getZoom(),
-        randomValue: Math.random()
-      },
-      mapInfo
-    );
-
-    Shiny.onInputChange(map_id + "_zoom_changed", eventInfo);
-  })
-
-}
-
-/**
- * Marker click
- *
- * Returns details of the marker that was clicked
- **/
-function marker_click(map_id, markerObject, marker_id, markerInfo){
-  if(!HTMLWidgets.shinyMode) return;
-
-  google.maps.event.addListener(markerObject, 'click', function(event){
-
-    var eventInfo = $.extend(
-      {
-        id: marker_id,
-        lat: event.latLng.lat().toFixed(4),
-        lon: event.latLng.lng().toFixed(4),
-        randomValue: Math.random()
-      },
-      markerInfo
-    );
-
-    Shiny.onInputChange(map_id + "_marker_click", eventInfo);
-  })
-}
-
-/**
- * Shape Click
- *
- * Returns the 'id' of the shape that was clicked back to shiny
- *
- **/
-function shape_click(map_id, shapeObject, shape_id, shapeInfo){
-
-  if(!HTMLWidgets.shinyMode) return;
-
-  google.maps.event.addListener(shapeObject, 'click', function(event){
-
-    var eventInfo = $.extend(
-      {
-        id: shape_id,
-        lat: event.latLng.lat().toFixed(4),
-        lon: event.latLng.lng().toFixed(4),
-        randomValue: Math.random() // force reactivity so that 'onInputChange' thinks the input has changed
-      },
-      shapeInfo
-    );
-
-    Shiny.onInputChange(map_id + "_shape_click", eventInfo);
-  });
-
-}
-
-function polyline_click(map_id, polylineObject, polyline_id, polylineInfo){
-
-  if(!HTMLWidgets.shinyMode) return;
-
-  google.maps.event.addListener(polylineObject, 'click', function(event){
-
-    var eventInfo = $.extend(
-      {
-        id: polyline_id,
-        lat: event.latLng.lat().toFixed(4),
-        lon: event.latLng.lng().toFixed(4),
-        path: google.maps.geometry.encoding.encodePath(polylineObject.getPath()),
-        randomValue: Math.random()
-      },
-      polylineInfo
-    );
-
-    Shiny.onInputChange(map_id + "_polyline_click", eventInfo);
-  });
-
-}
-
-function polygon_click(map_id, polygonObject, polygon_id, polygonInfo){
-
-  if(!HTMLWidgets.shinyMode) return;
-
-  google.maps.event.addListener(polygonObject, 'click', function(event){
-
-    var polygonOuterPath = google.maps.geometry.encoding.encodePath(polygonObject.getPath());
-    var polygonAllPaths = [];
-    var paths = polygonObject.getPaths();
-
-    for(i = 0; i < paths.getLength(); i++){
-      polygonAllPaths.push(google.maps.geometry.encoding.encodePath(paths.getAt(i)));
-    }
-
-    var eventInfo = $.extend(
-      {
-        id: polygon_id,
-        lat: event.latLng.lat().toFixed(4),
-        lon: event.latLng.lng().toFixed(4),
-        path: polygonOuterPath,
-        paths: polygonAllPaths,
-        randomValue: Math.random()
-      },
-      polygonInfo
-    );
-
-    Shiny.onInputChange(map_id + "_polygon_click", eventInfo);
-  });
-
-}
-
-
-/**
- * Adds infowindow to the specified map object
- *
- * @param map_id
- * @param mapObject
- *          the object the info window is being attached to
- * @param objectAttribute
- *          string attribute name
- * @param attributeValue
- *          the value of the attribute
- */
-function add_infoWindow(map_id, mapObject, infoWindow, objectAttribute, attributeValue){
-
-  mapObject.set(objectAttribute, attributeValue);
-
-  google.maps.event.addListener(mapObject, 'click', function(event){
-
-    // the listener is being bound to the mapObject. So, when the infowindow
-    // contents are updated, the 'click' listener will need to see the new information
-    // ref: http://stackoverflow.com/a/13504662/5977215
-    mapObject.setOptions({"_information": mapObject.get(objectAttribute)});
-
-    infoWindow.setContent(mapObject.get(objectAttribute));
-
-    infoWindow.setPosition(event.latLng);
-    infoWindow.open(window[map_id + 'map']);
-  });
-}
-
 
 function add_traffic(map_id){
 
@@ -1525,121 +1313,5 @@ function clear_search(map_id){
       window[map_id + 'googlePlaceMarkers'] = [];
 }
 
-function findById(source, id) {
-  for (var i = 0; i < source.length; i++) {
-    if (source[i].id === id) {
-      return source[i];
-    }
-  }
-  return;
-}
 
-function initialise_map(el, x) {
 
-  // map bounds object
-  //console.log("initialising map: el.id: ");
-  //console.log(el.id);
-  window[el.id + 'mapBounds'] = new google.maps.LatLngBounds();
-
-  // if places
-  if(x.search_box === true){
-    var input = document.getElementById('pac-input');
-    //var input = document.getElementById('search-container');
-
-    window[el.id + 'googleSearchBox'] = new google.maps.places.SearchBox(input);
-    window[el.id + 'map'].controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-    // Bias the SearchBox results towards current map's viewport.
-    window[el.id + 'map'].addListener('bounds_changed', function() {
-      window[el.id + 'googleSearchBox'].setBounds(window[el.id + 'map'].getBounds());
-    });
-
-    var markers = [];
-
-    // listen for deleting the search bar
-    input.addEventListener('input', function(){
-      if(input.value.length === 0){
-        clear_search(el.id)
-      }
-    })
-
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    window[el.id + 'googleSearchBox'].addListener('places_changed', function() {
-      var places = window[el.id + 'googleSearchBox'].getPlaces();
-      if (places.length == 0) {
-        return;
-      }
-
-      // Clear out the old markers.
-      window[el.id + 'googlePlaceMarkers'].forEach(function(marker) {
-        marker.setMap(null);
-      });
-      window[el.id + 'googlePlaceMarkers'] = [];
-
-      // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
-
-      places.forEach(function(place) {
-        if (!place.geometry) {
-          console.log("Returned place contains no geometry");
-          return;
-        }
-        var icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
-        };
-
-        // Create a marker for each place.
-        window[el.id + 'googlePlaceMarkers'].push(new google.maps.Marker({
-          map: window[el.id + 'map'],
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        }));
-
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      window[el.id + 'map'].fitBounds(bounds);
-    });
-  }
-
-  // call initial layers
-  if(x.calls !== undefined){
-
-    for(layerCalls = 0; layerCalls < x.calls.length; layerCalls++){
-
-      //push the map_id into the call.args
-      x.calls[layerCalls].args.unshift(el.id);
-
-      if (window[x.calls[layerCalls].functions]){
-
-        window[x.calls[layerCalls].functions].apply(window[el.id + 'map'], x.calls[layerCalls].args);
-      }else{
-        console.log("Unknown function " + x.calls[layerCalls]);
-
-      }
-    }
-  }
-
-  // listeners
-  mapInfo = {};
-//  console.log('map info');
-//  console.log(mapInfo);
-
-  map_click(el.id, window[el.id + 'map'], mapInfo);
-  bounds_changed(el.id, window[el.id + 'map'], mapInfo);
-  zoom_changed(el.id, window[el.id + 'map'], mapInfo);
-
-//  console.log("map info 2");
-//  console.log(mapInfo);
-
-}

@@ -8,10 +8,10 @@
 #' @param cols columns
 DataTableColumn <- function(df, id, cols){
 
-  js <- sapply(1:nrow(df), function(x) jsonlite::toJSON( list("c" =  df[x, cols] )))
-  df$js <- gsub(paste0(cols, collapse = "|"), replacement = "v", gsub(",","},{",js))
+  info_window <- sapply(1:nrow(df), function(x) jsonlite::toJSON( list("c" =  df[x, cols] )))
+  df$info_window <- gsub(paste0(cols, collapse = "|"), replacement = "v", gsub(",","},{",info_window))
 
-  df <- aggregate(formula(paste0("js ~ ", id)), data = df, FUN = collapseJson)
+  df <- aggregate(formula(paste0("info_window ~ ", id)), data = df, FUN = collapseJson)
   return(df)
 }
 

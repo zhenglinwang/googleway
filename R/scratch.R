@@ -828,11 +828,16 @@
 #
 # id <- "stop_id"
 # tram_stops <- merge(tram_stops, df_js, by = id, all.x = T)
+# #
+# # map_key <- read.dcf("~/Documents/.googleAPI", fields = "GOOGLE_MAP_KEY")
 #
-# map_key <- read.dcf("~/Documents/.googleAPI", fields = "GOOGLE_MAP_KEY")
+# tram_stops
+#
+# l <- list(data = markerCharts, type = 'pie')
+
 # google_map(key = map_key) %>%
-#  add_markers(data = tram_stops, lat = "stop_lat", lon = "stop_lon",
-#              info_window = "js")
+#  add_markers(data = tram_stops, lat = "stop_lat", lon = "stop_lon", id = "stop_id",
+#              info_window = list(data = markerCharts, type = 'pie') )
 
 
 

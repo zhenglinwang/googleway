@@ -27,6 +27,16 @@ NULL
 #' }
 NULL
 
+#' Google Charts
+#'
+#' Google Charts that can be displayed
+#'
+#' @name google_charts
+#' @rdname google_charts
+#'
+NULL
+
+
 ## build notes
 # --use-valgrind
 directions_data <- function(base_url,

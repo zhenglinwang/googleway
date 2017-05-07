@@ -25,13 +25,38 @@
 #' only the first character will be used.
 #' @param cluster logical indicating if co-located markers should be clustered
 #' when the map zoomed out
-#' @param info_window string specifying the column of data to display in an info
-#' window when a marker is clicked
+#' @param info_window Either a string specifying the column of data to display in an info
+#' window when a marker is clicked, or a \code{list} containing a \code{data.frame}
+#' and a \code{type} argument that specifies the data and chart type to use in the
+#' \code{info_window}. See details
 #' @param mouse_over string specifying the column of data to display when the
 #' mouse rolls over the marker
 #' @param mouse_over_group string specifying the column of data specifying which
 #' groups of circles to highlight on mouseover
 #' @param layer_id single value specifying an id for the layer.
+#'
+#' @details
+#' An \code{info_window} can display either a single value from the \code{data},
+#' formatted \code{HTML}, or a Google Chart
+#' (\url{https://developers.google.com/chart/interactive/docs/gallery}).
+#'
+#' To display a Google chart the \code{info_window} argument will accept a \code{list}
+#' with at minimum a \code{data} and \code{type} element. The \code{data} will
+#' be a \code{data.frame} with one column containing the same \code{id} value that
+#' links it to the \code{data} passed in through the \code{add_} funciton, or
+#' through the \code{google_map()} function. The remaining columns will be used
+#' to populate the chart.
+#'
+#' The \code{type} element defines the type of chart that will be shown. The supported
+#' types are
+#'
+#' \itemize{
+#'   \item{pie - pie chart}
+#'}
+#'
+#' See \link{google_charts} for details and options available for each chart
+#'
+#' @seealso \link{google_charts}
 #'
 #' @examples
 #' \dontrun{
@@ -104,9 +129,6 @@ add_markers <- function(map,
   if(!is.logical(cluster))
     stop("cluster must be logical")
 
-  if(!is.null(id))
-    markers[, "id"] <- as.character(data[, id])
-
   if(!is.null(title))
     markers[, "title"] <- as.character(data[, title])
 
@@ -126,11 +148,32 @@ add_markers <- function(map,
     ## and needs to define the chart type
     ## e.g. list("pie", c("stop_lat", "stop_lon"))
     if(inherits(info_window, "list")){
+      if(is.null(id))
+        stop("you need to provide an 'id' value so that the infow window data can be assigned to a marker")
+
+      if(!all(c("data", "type") %in% names(info_window)))
+        stop("infow_window list requires a 'data' and 'type' element")
+
+      infoData <- info_window[['data']]
+      dataCols <- setdiff(names(infoData), id)
+
+      v <- sapply(infoData[, dataCols], JsonType)
+      visualizationCols <- paste0('"cols":[{', paste0('"id":"', names(v), '","type":"', v, '"', collapse = "},{"), '}]')
+
+      infoData <- DataTableColumn(df = infoData, id = id, cols = dataCols)
 
     }else{
       markers[, "info_window"] <- as.character(data[, info_window])
+      vizualisationCols <- NULL
     }
+  }
 
+  ## id NULL check must be after infow_window
+  if(!is.null(id))
+    markers[, "id"] <- as.character(data[, id])
+
+  if(exists('infoData')){
+    markers <- merge(markers, infoData, by.x = "id", by.y = id, all.x = T)
   }
 
   if(!is.null(mouse_over))
@@ -155,7 +198,7 @@ add_markers <- function(map,
 
   markers <- jsonlite::toJSON(markers)
 
-  invoke_method(map, data, 'add_markers', markers, cluster, layer_id)
+  invoke_method(map, data, 'add_markers', markers, cluster, layer_id, visualizationCols)
 }
 
 #' clear map elements

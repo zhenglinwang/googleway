@@ -17,3 +17,7 @@ dependencies:
     version: 1.0.0
     src: "htmlwidgets/lib"
     script: google_charts.js
+  - name: map_utilities.js
+    version: 1.0.0
+    src: "htmlwidgets/lib"
+    script: map_utilities.js

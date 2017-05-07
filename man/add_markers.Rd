@@ -44,8 +44,10 @@ only the first character will be used.}
 \item{cluster}{logical indicating if co-located markers should be clustered
 when the map zoomed out}
 
-\item{info_window}{string specifying the column of data to display in an info
-window when a marker is clicked}
+\item{info_window}{Either a string specifying the column of data to display in an info
+window when a marker is clicked, or a \code{list} containing a \code{data.frame}
+and a \code{type} argument that specifies the data and chart type to use in the
+\code{info_window}. See details}
 
 \item{mouse_over}{string specifying the column of data to display when the
 mouse rolls over the marker}
@@ -57,6 +59,27 @@ groups of circles to highlight on mouseover}
 }
 \description{
 Add markers to a google map
+}
+\details{
+An \code{info_window} can display either a single value from the \code{data},
+formatted \code{HTML}, or a Google Chart
+(\url{https://developers.google.com/chart/interactive/docs/gallery}).
+
+To display a Google chart the \code{info_window} argument will accept a \code{list}
+with at minimum a \code{data} and \code{type} element. The \code{data} will
+be a \code{data.frame} with one column containing the same \code{id} value that
+links it to the \code{data} passed in through the \code{add_} funciton, or
+through the \code{google_map()} function. The remaining columns will be used
+to populate the chart.
+
+The \code{type} element defines the type of chart that will be shown. The supported
+types are
+
+\itemize{
+  \item{pie - pie chart}
+}
+
+See \link{google_charts} for details and options available for each chart
 }
 \examples{
 \dontrun{
@@ -73,5 +96,8 @@ google_map(key = map_key, data = df) \%>\%
  add_markers(lat = "lat", lon = "lon", info_window = "weight")
 
 }
+}
+\seealso{
+\link{google_charts}
 }
 
