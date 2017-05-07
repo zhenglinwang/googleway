@@ -835,11 +835,27 @@
 #
 # l <- list(data = markerCharts, type = 'pie')
 
+## pie
+
+# chartList <- list(data = markerCharts,
+#                   type = 'pie',
+#                   options = NULL)
+#
 # google_map(key = map_key) %>%
 #  add_markers(data = tram_stops, lat = "stop_lat", lon = "stop_lon", id = "stop_id",
-#              info_window = list(data = markerCharts, type = 'pie') )
-
-
-
-
-
+#              info_window = chartList)
+#
+#
+# markerCharts <- data.frame(stop_id = rep(tram_stops$stop_id, each = 7))
+# markerCharts$year <- c("2010","2011","2012","2013","2014","2015","2016")
+# markerCharts$paid <- sample(1:10, size = nrow(markerCharts), replace = T)
+# markerCharts$unpaid <- sample(1:10, size = nrow(markerCharts), replace = T)
+#
+#
+# chartList <- list(data = markerCharts[markerCharts$stop_id == "17880",],
+#                   type = 'area',
+#                   options = NULL)
+#
+# google_map(key = map_key) %>%
+#   add_markers(data = tram_stops[tram_stops$stop_id == "17880",], lat = "stop_lat", lon = "stop_lon", id = "stop_id",
+#               info_window = chartList)

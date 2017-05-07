@@ -6,4 +6,27 @@
 \description{
 Google Charts that can be displayed
 }
+\section{Pie Chart}{
+
+
+A Pie chart requires a \code{data.frame} of two columns. The first column contains
+the text that's used as the label, and the second contains the data taht's used in
+the pie.
+
+type: 'pie'
+
+options
+\itemize{
+  \item{title - string of text}
+  \item{is3D - logical}
+}
+}
+
+\section{Area}{
+
+
+\url{https://developers.google.com/chart/interactive/docs/gallery/areachart}
+
+Each row of data represents a data point at the same x-axis location
+}
 

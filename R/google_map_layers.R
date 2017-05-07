@@ -162,9 +162,18 @@ add_markers <- function(map,
 
       infoData <- DataTableColumn(df = infoData, id = id, cols = dataCols)
 
+      ## chart options
+      chartOptions <- info_window[['options']]
+
+
+      ## chart type
+      markers[, 'chart_type'] <- tolower(info_window[['type']])
+
+
     }else{
       markers[, "info_window"] <- as.character(data[, info_window])
       vizualisationCols <- NULL
+      chartOptions <- NULL
     }
   }
 

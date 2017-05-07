@@ -199,7 +199,8 @@ function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols)
       title: data_markers[i].title,
       label: data_markers[i].label,
       mouseOverGroup: data_markers[i].mouse_over_group,
-      info_window: data_markers[i].info_window
+      info_window: data_markers[i].info_window,
+      chart_type: data_markers[i].chart_type
     });
 
     cl(marker);
@@ -215,7 +216,7 @@ function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols)
 
       google.maps.event.addListener(marker, 'click', function() {
 //        this.infowindow.open(window[map_id + 'map'], this);
-        drawChart(this, this.info_window, visualizationCols);
+        drawChart(this, this.info_window, visualizationCols, 'line');
       });
 
       //add_infoWindow(map_id, marker, infoWindow, '_information', data_markers[i].info_window);

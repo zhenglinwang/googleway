@@ -1,10 +1,4 @@
 
-
-function cl(x){
-  console.log(x);
-}
-
-
 /**
  * drawChart
  *
@@ -26,13 +20,26 @@ function drawChart(marker, row, cols) {
                  'height':150};
 
   var node        = document.createElement('div'),
-      infoWindow  = new google.maps.InfoWindow(),
-      chart       = new google.visualization.PieChart(node);
+      infoWindow  = new google.maps.InfoWindow();
+
+  var chart;
+  var type = marker.chart_type;
+
+  if(type === 'area'){
+    chart = new google.visualization.AreaChart(node);
+  }else if(type === 'line'){
+    chart = new google.visualization.LineChart(node);
+  }else if(type === 'pie'){
+    chart = new google.visualization.PieChart(node);
+  }
+
+      //chart       = new google.visualization.PieChart(node);
       //chart       = new google.visualization.ColumnChart(node);
 
       chart.draw(data, options);
       infoWindow.setContent(node);
       infoWindow.open(marker.getMap(), marker);
+
 }
 
 

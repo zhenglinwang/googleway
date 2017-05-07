@@ -1,3 +1,8 @@
+function cl(x){
+  console.log(x);
+}
+
+
 /**
  * Adds infowindow to the specified map object
  *
