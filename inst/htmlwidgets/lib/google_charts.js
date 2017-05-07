@@ -5,19 +5,20 @@ function cl(x){
 }
 
 
-function drawChart(marker) {
+function drawChart(marker, js) {
 
-  var js = '{"cols":[{"id":"task","label":"Task","type":"string"},{"id":"hours","label":"Hours per Day","type":"number"}],"rows":[{"c":[{"v":"Play"},{"v":11}]},{"c":[{"v":"Eat"},{"v":2}]},{"c":[{"v":"Commute"},{"v":2}]},{"c":[{"v":"Watch TV"},{"v":2}]},{"c":[{"v":"Sleep"},{"v":7,"f":"7.000"}]}]}';
+//  var js = '{"cols":[{"id":"task","label":"Task","type":"string"},{"id":"hours","label":"Hours per Day","type":"number"}],"rows":[{"c":[{"v":"Play"},{"v":11}]},{"c":[{"v":"Eat"},{"v":2}]},{"c":[{"v":"Commute"},{"v":2}]},{"c":[{"v":"Watch TV"},{"v":2}]},{"c":[{"v":"Sleep"},{"v":7,"f":"7.000"}]}]}';
 
-  var h = '[{"id":"firstCol", "type":"string"},{"id":"booVal","type":"boolean"},{"id":"numVal","type":"number"},{"id":"strVal","type":"string"},{"id":"dteVal","type":"string"},{"id":"dtmVal","type":"string"}]';
+//  var h = '[{"id":"firstCol", "type":"string"},{"id":"booVal","type":"boolean"},{"id":"numVal","type":"number"},{"id":"strVal","type":"string"},{"id":"dteVal","type":"string"},{"id":"dtmVal","type":"string"}]';
 
-  var r = '[{"c":[{"v":"hello"},{"v":true},{"v":1},{"v":"myString"},{"v":"myDate"},{"v":"myDateTime"}] }]';
+//  var r = '[{"c":[{"v":"hello"},{"v":true},{"v":1},{"v":"myString"},{"v":"myDate"},{"v":"myDateTime"}] }]';
 
-  var str = '{"cols":'+h+',"rows":'+r+'}';
-  cl("valid json");
+//  var str = '{"cols":'+h+',"rows":'+r+'}';
+//  cl("valid json");
+  js = '{'+js+'}'
   cl(js);
-  cl("invalid json");
-  cl(str);
+//  cl("invalid json");
+//  cl(str);
 
   //var data = new google.visualization.DataTable(js);
 
@@ -43,7 +44,7 @@ function drawChart(marker) {
         //       {c:[{v: 'Sleep'}, {v:7, f:'7.000'}]}]
          //}, 0.6);
 
-         var data = new google.visualization.DataTable(str);
+         var data = new google.visualization.DataTable(js);
 
         cl(data.toJSON());
 

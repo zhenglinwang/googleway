@@ -821,16 +821,18 @@
 #
 # headings <- paste0('"cols":[{', paste0('"id":"', names(v), '","type":"', v, '"', collapse = "},{"), '}]')
 #
+# ## create JSON for each row/id
+# df_js <- googleway:::DataTableColumn(markerCharts, "stop_id", cols)
 #
-# toJSON(markerCharts[markerCharts$stop_id == "17880",  cols])
+# df_js$js <- paste0(headings, ",",  df_js$js)
 #
-# names(markerCharts)[names(markerCharts) %in% cols] <- "v"
+# id <- "stop_id"
+# tram_stops <- merge(tram_stops, df_js, by = id, all.x = T)
 #
-# toJSON(markerCharts[markerCharts$stop_id == "17880",  c("v","v")])
-#
+# map_key <- read.dcf("~/Documents/.googleAPI", fields = "GOOGLE_MAP_KEY")
 # google_map(key = map_key) %>%
-#   add_markers(data = tram_stops, lat = "stop_lat", lon = "stop_lon",
-#               info_window = "val1")
+#  add_markers(data = tram_stops, lat = "stop_lat", lon = "stop_lon",
+#              info_window = "js")
 
 
 
