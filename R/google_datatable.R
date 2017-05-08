@@ -16,6 +16,21 @@ DataTableColumn <- function(df, id, cols){
 }
 
 
+#' Data Table Headings
+#'
+#' Creates the javascript that's required for the headings of a javascript
+#' DataTable
+#'
+#' @param df data.frame
+DataTableHeading <- function(df, cols){
+  v <- sapply(df[, cols], JsonType)
+  return(paste0('"cols":[{', paste0('"id":"', names(v), '",',
+                                    '"label":"', names(v), '",',
+                                    '"type":"', v, '"', collapse = "},{"), '}]'))
+}
+
+
+
 collapseJson <- function(x) paste0('"rows":[', paste0(x, collapse = ","),']' )
 
 

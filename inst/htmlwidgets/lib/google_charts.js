@@ -8,14 +8,24 @@
  * @param cols
  *    the DataTableVisualization() columns as javascript
  **/
-function drawChart(marker, row, cols) {
+function drawChart(marker) {
 
-  var js = '{'+cols+','+row+'}';
+//  cl('charts loaded: ' + isChartsLoaded().toString());
+//
+//  if(!isChartsLoaded()){
+//    cl('loading charts library');
+//    google.charts.load('current', {'packages':['corechart']});
+//  }
+
+  var js = '{'+marker.chart_cols+','+marker.info_window+'}';
   var data = new google.visualization.DataTable(js);
 
+  cl(data.toJSON());
+
   // Set chart options
-  var options = {'title':'Pizza sold @ '+
-                         marker.getPosition().toString(),
+  var options = {'title':'Marker location: '+ marker.getPosition().toString(),
+//                 'chartArea' : {'left': '5%', 'width' : '80%'},
+//                 'legend' : 'bottom',
                  'width':400,
                  'height':150};
 
@@ -33,12 +43,9 @@ function drawChart(marker, row, cols) {
     chart = new google.visualization.PieChart(node);
   }
 
-      //chart       = new google.visualization.PieChart(node);
-      //chart       = new google.visualization.ColumnChart(node);
-
-      chart.draw(data, options);
-      infoWindow.setContent(node);
-      infoWindow.open(marker.getMap(), marker);
+  chart.draw(data, options);
+  infoWindow.setContent(node);
+  infoWindow.open(marker.getMap(), marker);
 
 }
 

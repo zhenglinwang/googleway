@@ -200,11 +200,9 @@ function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols)
       label: data_markers[i].label,
       mouseOverGroup: data_markers[i].mouse_over_group,
       info_window: data_markers[i].info_window,
-      chart_type: data_markers[i].chart_type
+      chart_type: data_markers[i].chart_type,
+      chart_cols: data_markers[i].chart_cols
     });
-
-    cl(marker);
-
 
     if(data_markers[i].info_window){
 
@@ -212,11 +210,9 @@ function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols)
 //        content: data_markers[i].info_window
 //      });
 
-      cl(data_markers[i].info_window);
-
       google.maps.event.addListener(marker, 'click', function() {
 //        this.infowindow.open(window[map_id + 'map'], this);
-        drawChart(this, this.info_window, visualizationCols, 'line');
+        drawChart(this);
       });
 
       //add_infoWindow(map_id, marker, infoWindow, '_information', data_markers[i].info_window);

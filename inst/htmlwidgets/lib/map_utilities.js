@@ -1,5 +1,15 @@
+
 function cl(x){
   console.log(x);
+}
+
+
+function isChartsLoaded(){
+  if( typeof google.visualization === 'undefined'){
+    return false;
+  }else{
+    return true;
+  }
 }
 
 

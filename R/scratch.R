@@ -846,6 +846,9 @@
 #              info_window = chartList)
 #
 #
+
+# library(googleway)
+# map_key <- symbolix.utils::mapKey()
 # markerCharts <- data.frame(stop_id = rep(tram_stops$stop_id, each = 7))
 # markerCharts$year <- c("2010","2011","2012","2013","2014","2015","2016")
 # markerCharts$paid <- sample(1:10, size = nrow(markerCharts), replace = T)
@@ -853,9 +856,11 @@
 #
 #
 # chartList <- list(data = markerCharts[markerCharts$stop_id == "17880",],
-#                   type = 'area',
+#                   type = 'line',
 #                   options = NULL)
 #
 # google_map(key = map_key) %>%
 #   add_markers(data = tram_stops[tram_stops$stop_id == "17880",], lat = "stop_lat", lon = "stop_lon", id = "stop_id",
 #               info_window = chartList)
+
+

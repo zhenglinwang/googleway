@@ -157,8 +157,7 @@ add_markers <- function(map,
       infoData <- info_window[['data']]
       dataCols <- setdiff(names(infoData), id)
 
-      v <- sapply(infoData[, dataCols], JsonType)
-      visualizationCols <- paste0('"cols":[{', paste0('"id":"', names(v), '","type":"', v, '"', collapse = "},{"), '}]')
+      markers[, 'chart_cols'] <- DataTableHeading(infoData, dataCols)
 
       infoData <- DataTableColumn(df = infoData, id = id, cols = dataCols)
 
@@ -207,7 +206,7 @@ add_markers <- function(map,
 
   markers <- jsonlite::toJSON(markers)
 
-  invoke_method(map, data, 'add_markers', markers, cluster, layer_id, visualizationCols)
+  invoke_method(map, data, 'add_markers', markers, cluster, layer_id)
 }
 
 #' clear map elements
