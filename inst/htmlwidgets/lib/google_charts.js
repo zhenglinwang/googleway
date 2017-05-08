@@ -20,8 +20,6 @@ function drawChart(marker) {
   var js = '{'+marker.chart_cols+','+marker.info_window+'}';
   var data = new google.visualization.DataTable(js);
 
-  cl(data.toJSON());
-
   // Set chart options
   var options = {'title':'Marker location: '+ marker.getPosition().toString(),
 //                 'chartArea' : {'left': '5%', 'width' : '80%'},

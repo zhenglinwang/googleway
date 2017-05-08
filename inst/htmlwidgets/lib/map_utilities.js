@@ -4,21 +4,14 @@ function cl(x){
 }
 
 
-function isChartsLoaded(){
-  if( typeof google.visualization === 'undefined'){
-    return false;
-  }else{
-    return true;
-  }
-}
-
-
 /**
  * Adds infowindow to the specified map object
  *
  * @param map_id
  * @param mapObject
  *          the object the info window is being attached to
+ * @param infoWindow
+ *           the info Window object being bound to the map object
  * @param objectAttribute
  *          string attribute name
  * @param attributeValue
