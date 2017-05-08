@@ -6,11 +6,12 @@
 #'
 #' @param df data.frame
 #' @param cols columns
+#'
+#' @return \code{data.frame} with one row of JSON against each ID
 DataTableColumn <- function(df, id, cols){
 
   info_window <- sapply(1:nrow(df), function(x) jsonlite::toJSON( list("c" =  df[x, cols] )))
   df$info_window <- gsub(paste0(cols, collapse = "|"), replacement = "v", gsub(",","},{",info_window))
-
   df <- aggregate(formula(paste0("info_window ~ ", id)), data = df, FUN = collapseJson)
   return(df)
 }

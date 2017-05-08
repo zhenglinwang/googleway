@@ -60,6 +60,8 @@ function chartOptions(mapObject){
  **/
 function chartObject(mapObject) {
 
+  cl("chart object");
+
   var js = chartJson(mapObject.chart_cols, mapObject.info_window);
   var data = new google.visualization.DataTable(js);
 

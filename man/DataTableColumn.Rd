@@ -11,8 +11,10 @@ DataTableColumn(df, id, cols)
 
 \item{cols}{columns}
 }
+\value{
+\code{data.frame} with one row of JSON against each ID
+}
 \description{
 Creates the javascript that's used in a Google Data Table Visualisation from
 the specified columns of a data.frame
 }
-

@@ -13,4 +13,3 @@ DataTableHeading(df, cols)
 Creates the javascript that's required for the headings of a javascript
 DataTable
 }
-

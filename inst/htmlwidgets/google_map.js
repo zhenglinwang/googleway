@@ -204,6 +204,8 @@ function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols)
 
       }else{
 
+        cl("chart listener");
+
         google.maps.event.addListener(marker, 'click', function() {
           chartObject(this);
         });
