@@ -848,7 +848,8 @@
 #
 
 # library(googleway)
-# map_key <- symbolix.utils::mapKey()
+# map_key <- read.dcf("~/Documents/.googleAPI", fields = "GOOGLE_MAP_KEY")
+#
 # markerCharts <- data.frame(stop_id = rep(tram_stops$stop_id, each = 7))
 # markerCharts$year <- c("2010","2011","2012","2013","2014","2015","2016")
 # markerCharts$paid <- sample(1:10, size = nrow(markerCharts), replace = T)

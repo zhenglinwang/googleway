@@ -100,3 +100,4 @@ google_map(key = map_key, data = df) \%>\%
 \seealso{
 \link{google_charts}
 }
+

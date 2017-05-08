@@ -15,3 +15,4 @@ DataTableColumn(df, id, cols)
 Creates the javascript that's used in a Google Data Table Visualisation from
 the specified columns of a data.frame
 }
+

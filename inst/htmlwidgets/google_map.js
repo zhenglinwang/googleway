@@ -12,7 +12,6 @@ HTMLWidgets.widget({
 
         google.charts.load('current', {'packages':['corechart']});
 
-
 //        DEBUGGING numeric / text
 //        myInfo = {id: "a"};
 //        let myVar = {
@@ -21,20 +20,6 @@ HTMLWidgets.widget({
 //        };
 //        myInfo = $.extend(myVar, myInfo);
 //        Shiny.onInputChange("myData", myInfo);
-
-          // global map objects
-          // - display elements
-//          window[el.id + 'googleMarkers'] = [];
-//          window[el.id + 'googleMarkerClusterer'];
-//          window[el.id + 'googleHeatmapLayer'] = [];
-//          window[el.id + 'googleHeatmapLayerMVC'] = [];
-//          window[el.id + 'googleCircles'] = [];
-//          window[el.id + 'googlePolyline'] = [];
-//          window[el.id + 'googlePolygon'] = [];
-//          window[el.id + 'googlePolygonMVC'] = [];
-
-//          window[el.id + 'googleBounds'] = [];
-//          window[el.id + 'googleBounds'] = new google.maps.LatLngBounds();
 
           // visualisation layers
           window[el.id + 'googleTrafficLayer'] = [];
@@ -207,18 +192,23 @@ function add_markers(map_id, data_markers, cluster, layer_id, visualizationCols)
     if(data_markers[i].info_window){
 
       // info window can either be a value, formatted HTML, or a chart.
+      if(marker.chart_type === undefined){
 
+        marker.infowindow = new google.maps.InfoWindow({
+          content: data_markers[i].info_window
+        });
 
-//      marker.infowindow = new google.maps.InfoWindow({
-//        content: data_markers[i].info_window
-//      });
+        google.maps.event.addListener(marker, 'click', function() {
+          this.infowindow.open(window[map_id + 'map'], this);
+        });
 
-      google.maps.event.addListener(marker, 'click', function() {
-//        this.infowindow.open(window[map_id + 'map'], this);
-        drawChart(this);
-      });
+      }else{
 
-      //add_infoWindow(map_id, marker, infoWindow, '_information', data_markers[i].info_window);
+        google.maps.event.addListener(marker, 'click', function() {
+          chartObject(this);
+        });
+
+      }
     }
 
     if(data_markers[i].mouse_over || data_markers[i].mouse_over_group){

@@ -164,9 +164,12 @@ add_markers <- function(map,
       ## chart options
       chartOptions <- info_window[['options']]
 
-
       ## chart type
-      markers[, 'chart_type'] <- tolower(info_window[['type']])
+      if(is.null(info_window[['type']])){
+        markers[, 'chart_type'] <- 'line'
+      }else{
+        markers[, 'chart_type'] <- tolower(info_window[['type']])
+      }
 
 
     }else{
