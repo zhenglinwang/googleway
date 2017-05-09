@@ -147,53 +147,9 @@ add_markers <- function(map,
     markers[, "id"] <- as.character(data[, id])
 
   if(!is.null(info_window)){
-    ## if a single columnname, use that
-    ## else, it needs to be multiple column names, where
-    ## the values will be the data components of a chart
-    ## and needs to define the chart type
-    ## e.g. list("pie", c("stop_lat", "stop_lon"))
+
     markers <- InfoWindow(info_window, markers, data, id)
   }
-  #   if(inherits(info_window, "list")){
-  #     if(is.null(id))
-  #       stop("you need to provide an 'id' value so that the infow window data can be assigned to a marker")
-  #
-  #     if(!all(c("data", "type") %in% names(info_window)))
-  #       stop("infow_window list requires a 'data' and 'type' element")
-  #
-  #     infoData <- info_window[['data']]
-  #     dataCols <- setdiff(names(infoData), id)
-  #
-  #     markers[, 'chart_cols'] <- DataTableHeading(infoData, dataCols)
-  #
-  #     infoData <- DataTableColumn(df = infoData, id = id, cols = dataCols)
-  #
-  #     ## TODO:
-  #     ## chart options
-  #     chartOptions <- info_window[['options']]
-  #
-  #     ## chart type
-  #     if(is.null(info_window[['type']])){
-  #       # message("No chart type specified. Defaulting to 'line'")
-  #       # markers[, 'chart_type'] <- 'line'
-  #       stop("please specify the type of chart you want")
-  #     }else{
-  #       markers[, 'chart_type'] <- tolower(info_window[['type']])
-  #     }
-  #
-  #
-  #   }else{
-  #     markers[, "info_window"] <- as.character(data[, info_window])
-  #
-  #     ## TODO:
-  #     chartOptions <- NULL
-  #   }
-  # }
-
-
-  # if(exists('infoData')){
-  #   markers <- merge(markers, infoData, by.x = "id", by.y = id, all.x = T)
-  # }
 
   if(!is.null(mouse_over))
     markers[, "mouse_over"] <- as.character(data[, mouse_over])

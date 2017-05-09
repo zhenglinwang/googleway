@@ -26,6 +26,10 @@ function chartJson(cols, rows){
 function chartType(type, node){
   if(type === 'area'){
     return(new google.visualization.AreaChart(node));
+  }else if(type === 'bar'){
+    return(new google.visualization.BarChart(node));
+  }else if(type === 'combo'){
+    return(new google.visualization.ComboChart(node));
   }else if(type === 'line'){
     return(new google.visualization.LineChart(node));
   }else if(type === 'pie'){
@@ -57,10 +61,11 @@ function chartOptions(mapObject){
  *
  * @param mapObject
  *     map object that contains the data for the chart
+ *
+ * @return node
+ *     div node containing the chart
  **/
 function chartObject(mapObject) {
-
-  cl("chart object");
 
   var js = chartJson(mapObject.chart_cols, mapObject.info_window);
   var data = new google.visualization.DataTable(js);
@@ -68,15 +73,13 @@ function chartObject(mapObject) {
   // Set chart options
   var options = chartOptions(mapObject);
 
-  var node        = document.createElement('div'),
-      infoWindow  = new google.maps.InfoWindow();
+  var node = document.createElement('div');
 
   // get a chart object
   var chart = chartType(mapObject.chart_type, node);
 
   chart.draw(data, options);
-  infoWindow.setContent(node);
-  infoWindow.open(mapObject.getMap(), mapObject);
+  return(node);
 
 }
 

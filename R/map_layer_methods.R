@@ -4,6 +4,12 @@ InfoWindow <- function(info_window, mapObject, data, id) UseMethod("InfoWindow")
 
 #' @export
 InfoWindow.list <- function(info_window, mapObject, data, id){
+  ## if a single columnname, use that
+  ## else, it needs to be multiple column names, where
+  ## the values will be the data components of a chart
+  ## and needs to define the chart type
+  ## e.g. list("pie", c("stop_lat", "stop_lon"))
+
   if(is.null(id))
     stop("To use a chart as an Info Window you need to provide an 'id' that links the two data sets together.
          Therefore, specify the 'id' parameter as the common column of data between the two.")

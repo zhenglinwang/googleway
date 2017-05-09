@@ -857,7 +857,7 @@
 #
 #
 # chartList <- list(data = markerCharts[markerCharts$stop_id == "17880",],
-#                   type = 'line',
+#                   type = 'bar',
 #                   options = NULL)
 #
 # google_map(key = map_key) %>%
