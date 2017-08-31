@@ -192,8 +192,11 @@ function update_polygons(map_id, data_polygon, layer_id){
  */
 function clear_polygons(map_id, layer_id){
 
- for (i = 0; i < window[map_id + 'googlePolygon' + layer_id].length; i++){
-    window[map_id + 'googlePolygon' + layer_id][i].setMap(null);
-  }
+ if (window[map_id + 'googlePolygon' + layer_id] && window[map_id + 'googlePolygon' + layer_id].length)
+ {
+   for (i = 0; i < window[map_id + 'googlePolygon' + layer_id].length; i++){
+      window[map_id + 'googlePolygon' + layer_id][i].setMap(null);
+    }
+ }
   window[map_id + 'googlePolygon' + layer_id] = null;
 }
