@@ -116,8 +116,11 @@ function clear_markers(map_id, layer_id){
 
   // the markers know which map they're on
   // http://stackoverflow.com/questions/7961522/removing-a-marker-in-google-maps-api-v3
-  for (i = 0; i < window[map_id + 'googleMarkers' + layer_id ].length; i++){
-      window[map_id + 'googleMarkers' + layer_id][i].setMap(null);
+  if(window[map_id + 'googleMarkers' + layer_id ] && window[map_id + 'googleMarkers' + layer_id ].length)
+  {
+    for (i = 0; i < window[map_id + 'googleMarkers' + layer_id ].length; i++){
+        window[map_id + 'googleMarkers' + layer_id][i].setMap(null);
+    }
   }
   window[map_id + 'googleMarkers' + layer_id] = null;
 
