@@ -69,8 +69,11 @@ function add_circles(map_id, data_circles, update_map_view, layer_id){
  *          the layer to clear
  */
 function clear_circles(map_id, layer_id){
-  for (i = 0; i < window[map_id + 'googleCircles' + layer_id].length; i++){
-    window[map_id + 'googleCircles' + layer_id][i].setMap(null);
+  if (window[map_id + 'googleCircles' + layer_id] && window[map_id + 'googleCircles' + layer_id].length)
+  {
+    for (i = 0; i < window[map_id + 'googleCircles' + layer_id].length; i++){
+      window[map_id + 'googleCircles' + layer_id][i].setMap(null);
+    }
   }
   window[map_id + 'googleCircles' + layer_id] = null;
 
